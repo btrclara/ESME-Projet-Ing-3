@@ -21,23 +21,29 @@ dataset = pd.read_csv(path, names=col_name)
 print(dataset)
 
 # Convert data type
-#dataset["class"] = pd.to_numeric(dataset["class"] , errors="ignore")
-#dataset["class"] = dataset["class"].astype(float)
-#dataset["class"] = dataset["class"].astype(int)
-#dataset["class"] = dataset["class"].astype(object).astype(float)
 lb = LabelEncoder()
 dataset['class'] = lb.fit_transform(dataset['class'])
 dataset['date'] = pd.to_datetime(dataset['date'], format='%Y-%m-%d-%H-%M-%S')
 print(dataset)
 
-# Create new column : subclass for every set of movements (30 movements = 1 subclass)
-n = len(dataset.index)
-count = 0
-dataset['subclass'] = [count if i % 30 != 0 else 1 - count for i in range(1, n+1)] # alterner les valeurs 1 et 0 toutes les 30 lignes
-count = 1 - count
-dataset = dataset[['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'subclass', 'class']]
-print(dataset)
+# Group by subclass (every 30 lines)
+dataset = dataset.groupby(dataset.index // 30).agg({
+    "ax": [("ax_mean", "mean"), ("ax_std", "std")], 
+    "ay": [("ay_mean", "mean"), ("ay_std", "std")], 
+    "az": [("az_mean", "mean"), ("az_std", "std")], 
+    "gx": [("gx_mean", "mean"), ("gx_std", "std")],
+    "gy": [("gy_mean", "mean"), ("gy_std", "std")],
+    "gz": [("gz_mean", "mean"), ("gz_std", "std")],
+    "flex": [("flex_mean", "mean"), ("flex_std", "std")],
+    "class": [("class", "first")],})
 
+# Create new column : subclass for every set of movements (30 movements = 1 subclass)
+#n = len(dataset.index)
+#count = 0
+#dataset['subclass'] = [count if i % 30 != 0 else 1 - count for i in range(1, n+1)] # alterner les valeurs 1 et 0 toutes les 30 lignes
+#count = 1 - count
+#dataset = dataset[['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'subclass', 'class']]
+#print(dataset)
 
 
 dataset.shape
