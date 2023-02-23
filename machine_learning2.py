@@ -48,13 +48,14 @@ dataset = dataset.groupby(dataset.index // 30).agg({
     "flex": [("flex_mean", "mean"), ("flex_std", "std")],
     "class": [("class", "first")],})
 
-# 3. Summarize the Dataset
+dataset.columns = dataset.columns.map('_'.join)
 
+# 3. Summarize the Dataset
 dataset.shape
 dataset.head()  # displaying the first 5 records of our dataset
 dataset.info()  # prints information about a DataFrame (index dtype, columns, non-null values, memory usage)
 dataset.describe()  # to view some basic statistical details of a DataFrame or a series of numeric values
-dataset['class'].value_counts()  # checks the number of rows that belongs to each class
+#dataset['class'].value_counts()  # checks the number of rows that belongs to each class
 
 
 # 5. Model Building- part 1
@@ -64,8 +65,8 @@ dataset['class'].value_counts()  # checks the number of rows that belongs to eac
 X is having all the dependent variables.
 Y is having an independent variable (here in this case ‘class’ is an independent variable).
 '''
-X = dataset.drop(['class'], axis=1)
-y = dataset['class']
+X = dataset.drop(['class_class'], axis=1)
+y = dataset['class_class']
 print(f'X shape: {X.shape} | y shape: {y.shape} ')
 
 # 5.2 Train Test split
