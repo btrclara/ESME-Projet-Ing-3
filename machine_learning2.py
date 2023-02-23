@@ -93,7 +93,7 @@ models.append(('RandomForestClassifier', RandomForestClassifier()))
 results = []
 model_names = []
 for name, model in models:
-    kfold = StratifiedKFold(n_splits=2, random_state=1, shuffle=True)
+    kfold = StratifiedKFold(n_splits=2, random_state=1, shuffle=True) # quelle valeur de n_split mettre ?? 
     cv_results = cross_val_score(model, X_train, y_train, cv=kfold, scoring='accuracy')
     results.append(cv_results)
     model_names.append(name)
