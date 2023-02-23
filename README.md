@@ -1,5 +1,7 @@
-# DeepLearning
+# Projet Ingé 3
 
-## Instructions
+## Programmes
+
+### Instructions
 - Il faut regarder le fichier **machine_learning2.py**
 - Les test sur le formatage du dataframe peuvent-être effectués sur **test.ipynb**
