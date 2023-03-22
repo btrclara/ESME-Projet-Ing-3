@@ -27,25 +27,31 @@ from sklearn.preprocessing import LabelEncoder
 # col_name = ['doigt_1', 'doigt_2', 'doigt_3', 'doigt_4', 'doigt_5', 'class']  # creates the list of column name
 # dataset = pd.read_csv(path, names=col_name)  # pandas read_csv() is used for reading the csv file
 
-path = 'data_test.csv'
-col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'class']
+path = 'dataset.csv'
+#col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'class']
+col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex4', 'flex5', 'class']
+
 dataset = pd.read_csv(path, names=col_name)
 
 # Convert data type & remove unwanted columns
 lb = LabelEncoder()
 dataset['class'] = lb.fit_transform(dataset['class'])
-dataset = dataset.drop(columns =['date', 'time'])
+#dataset = dataset.drop(columns =['date', 'time'])
 print(dataset)
 
 # Group by subclass (every 30 lines)
-dataset = dataset.groupby(dataset.index // 30).agg({
+dataset = dataset.groupby(dataset.index // 5).agg({
     "ax": [("ax_mean", "mean"), ("ax_std", "std")], 
     "ay": [("ay_mean", "mean"), ("ay_std", "std")], 
     "az": [("az_mean", "mean"), ("az_std", "std")], 
     "gx": [("gx_mean", "mean"), ("gx_std", "std")],
     "gy": [("gy_mean", "mean"), ("gy_std", "std")],
     "gz": [("gz_mean", "mean"), ("gz_std", "std")],
-    "flex": [("flex_mean", "mean"), ("flex_std", "std")],
+    "flex1": [("flex1_mean", "mean"), ("flex1_std", "std")],
+    "flex2": [("flex2_mean", "mean"), ("flex2_std", "std")],
+    "flex3": [("flex3_mean", "mean"), ("flex3_std", "std")],
+    "flex4": [("flex4_mean", "mean"), ("flex4_std", "std")],
+    "flex5": [("flex5_mean", "mean"), ("flex5_std", "std")],
     "class": [("class", "first")],})
 
 dataset.columns = dataset.columns.map('_'.join)
@@ -93,7 +99,7 @@ models.append(('RandomForestClassifier', RandomForestClassifier()))
 results = []
 model_names = []
 for name, model in models:
-    kfold = StratifiedKFold(n_splits=2, random_state=1, shuffle=True) # quelle valeur de n_split mettre ?? 
+    kfold = StratifiedKFold(n_splits=1, random_state=1, shuffle=True) # quelle valeur de n_split mettre ?? 
     cv_results = cross_val_score(model, X_train, y_train, cv=kfold, scoring='accuracy')
     results.append(cv_results)
     model_names.append(name)
