@@ -29,7 +29,7 @@ from sklearn.preprocessing import LabelEncoder
 
 path = 'dataset.csv'
 #col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'class']
-col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex4', 'flex5', 'class']
+col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex4', 'flex5', 'duree', 'class']
 
 dataset = pd.read_csv(path, names=col_name)
 
@@ -37,6 +37,8 @@ dataset = pd.read_csv(path, names=col_name)
 lb = LabelEncoder()
 dataset['class'] = lb.fit_transform(dataset['class'])
 #dataset = dataset.drop(columns =['date', 'time'])
+dataset = dataset.drop(columns =['duree'])
+
 print(dataset)
 
 # Group by subclass (every 30 lines)
@@ -99,7 +101,7 @@ models.append(('RandomForestClassifier', RandomForestClassifier()))
 results = []
 model_names = []
 for name, model in models:
-    kfold = StratifiedKFold(n_splits=1, random_state=1, shuffle=True) # quelle valeur de n_split mettre ?? 
+    kfold = StratifiedKFold(n_splits=2, random_state=1, shuffle=True) # quelle valeur de n_split mettre ?? 
     cv_results = cross_val_score(model, X_train, y_train, cv=kfold, scoring='accuracy')
     results.append(cv_results)
     model_names.append(name)
