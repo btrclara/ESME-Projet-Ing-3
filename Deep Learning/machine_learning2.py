@@ -119,8 +119,9 @@ print(f'Test Accuracy: {accuracy_score(y_test, prediction)}')
 print(f'Classification Report: \n {classification_report(y_test, prediction)}')
 plot_confusion_matrix(model, X_test, y_test)
 plt.show()
-with open('model_pickle_BDD_final_v2_sans_other' , 'wb') as f :
+with open('model_pickle_BDD' , 'wb') as f :
  pickle.dump(model,f)
 
-with open('model_pickle_BDD_final_v2_sans_other' , 'rb') as f :
+with open('model_pickle_BDD' , 'rb') as f :
   mp = pickle.load(f)
+
