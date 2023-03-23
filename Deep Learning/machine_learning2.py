@@ -34,8 +34,8 @@ col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex
 dataset = pd.read_csv(path, names=col_name)
 
 # Convert data type & remove unwanted columns
-lb = LabelEncoder()
-dataset['class'] = lb.fit_transform(dataset['class'])
+#lb = LabelEncoder()
+#dataset['class'] = lb.fit_transform(dataset['class'])
 #dataset = dataset.drop(columns =['date', 'time'])
 dataset = dataset.drop(columns =['duree'])
 
