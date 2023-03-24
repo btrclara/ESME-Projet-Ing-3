@@ -61,6 +61,7 @@ print(model.predict(X_test))
 
 # Calculer la précision du modèle
 #accuracy = accuracy_score(y_test, y_pred)
-
 #print('Précision du modèle: {:.2f}%'.format(accuracy*100))
+
+#print('Precision: %.3f' % precision_score(y_test, y_pred))
 #print(y_pred)

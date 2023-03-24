@@ -27,9 +27,9 @@ from sklearn.preprocessing import LabelEncoder
 # col_name = ['doigt_1', 'doigt_2', 'doigt_3', 'doigt_4', 'doigt_5', 'class']  # creates the list of column name
 # dataset = pd.read_csv(path, names=col_name)  # pandas read_csv() is used for reading the csv file
 
-path = 'dataset.csv'
+path = 'data2_1main.csv'
 #col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex', 'date', 'time', 'class']
-col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex4', 'flex5', 'duree', 'class']
+col_name = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'flex1', 'flex2', 'flex3', 'flex4', 'flex5', 'class']
 
 dataset = pd.read_csv(path, names=col_name)
 
@@ -37,7 +37,7 @@ dataset = pd.read_csv(path, names=col_name)
 #lb = LabelEncoder()
 #dataset['class'] = lb.fit_transform(dataset['class'])
 #dataset = dataset.drop(columns =['date', 'time'])
-dataset = dataset.drop(columns =['duree'])
+#dataset = dataset.drop(columns =['duree'])
 
 print(dataset)
 
@@ -119,9 +119,9 @@ print(f'Test Accuracy: {accuracy_score(y_test, prediction)}')
 print(f'Classification Report: \n {classification_report(y_test, prediction)}')
 plot_confusion_matrix(model, X_test, y_test)
 plt.show()
-with open('model_pickle_BDD' , 'wb') as f :
+with open('model_pickle_BDD_Thomas' , 'wb') as f :
  pickle.dump(model,f)
 
-with open('model_pickle_BDD' , 'rb') as f :
+with open('model_pickle_BDD_Thomas' , 'rb') as f :
   mp = pickle.load(f)
 
