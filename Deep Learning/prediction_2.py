@@ -3,7 +3,7 @@ import os
 import time
 
 def open_model():
-        with open('model_pickle_BDD', 'rb') as f:
+        with open('model_pickle_BDD_Thomas2', 'rb') as f:
             mp = pickle.load(f)
             return mp
         
